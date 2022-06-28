@@ -15,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.pratiksha.authentication.models.UserModel;
 
 import com.pratiksha.authentication.services.FileService;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 public class UserController
@@ -45,4 +47,7 @@ public class UserController
         UserModel userModel = fileService.addMultipleFile(files);
         return ResponseEntity.ok(userModel);
     }
+
+    
+    
 }

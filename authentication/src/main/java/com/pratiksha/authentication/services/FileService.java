@@ -27,10 +27,10 @@ import java.util.List;
 public class FileService 
 {
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository userRepository;  
     
     // public final String UPLOAD_DIR = "/home/am-pc-50/Java/SpringBoot/authentication/src/main/resources/static";
-    public final String UPLOAD_DIR = new ClassPathResource("static").getFile().getAbsolutePath();
+    public final String UPLOAD_DIR = new ClassPathResource("static/images/").getFile().getAbsolutePath();
    
 
     public FileService() throws IOException
@@ -59,9 +59,9 @@ public class FileService
 
         Files.copy(multipartFile.getInputStream(), Paths.get(UPLOAD_DIR + "/" + filename), StandardCopyOption.REPLACE_EXISTING);
 
-        UserModel userModel = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        UserModel userModel = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
        
-        String filepath = ServletUriComponentsBuilder.fromCurrentContextPath().path("/").path(filename).toUriString();
+        String filepath = ServletUriComponentsBuilder.fromCurrentContextPath().path("/images/").path(filename).toUriString();
         userModel.setFile(filepath);
         userRepository.save(userModel);
         return userModel;
@@ -78,7 +78,7 @@ public class FileService
         for(int i=0 ; i<multipartFiles.length ;i++)
         {
             String filename = Calendar.getInstance().get(Calendar.MILLISECOND) + multipartFiles[i].getOriginalFilename().trim();
-            String filepath = ServletUriComponentsBuilder.fromCurrentContextPath().path("/").path(filename).toUriString();
+            String filepath = ServletUriComponentsBuilder.fromCurrentContextPath().path("/images/").path(filename).toUriString();
             
             
             fileModel.add(new FileModel(multipartFiles[i].getOriginalFilename(),filepath));
@@ -86,11 +86,10 @@ public class FileService
             Files.copy(multipartFiles[i].getInputStream(), Paths.get(UPLOAD_DIR + "/" + filename), StandardCopyOption.REPLACE_EXISTING);
         }
 
-        UserModel userModel = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        UserModel userModel = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         userModel.setMultiplefile(fileModel);
 
         userRepository.save(userModel);
         return userModel;
     }
-  
 }

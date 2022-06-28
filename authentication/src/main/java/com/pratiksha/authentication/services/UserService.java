@@ -1,34 +1,73 @@
 package com.pratiksha.authentication.services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.pratiksha.authentication.models.UserModel;
 import com.pratiksha.authentication.repository.UserRepository;
+import com.pratiksha.authentication.utils.JwtUtil;
 
 @Service
 public class UserService implements UserDetailsService
 {
     @Autowired
-    private UserRepository userRepository;    
+    private UserRepository userRepository;  
+    
+    @Autowired
+    private EmailService emailService;
 
+  
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException 
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException 
     {
-        UserModel foundedUser = userRepository.findByUsername(username);
+        UserModel foundedUser = userRepository.findByEmail(email);
        
 
         if(foundedUser == null)
             return null;
 
-        String name = foundedUser.getUsername();
+        String name = foundedUser.getEmail();
         String pwd = foundedUser.getPassword();
         return new User(name,pwd,new ArrayList<>());
     }
+
+    public Map<String, Object> forgotPassword(String email)
+    {
+        UserModel user = userRepository.findByEmail(email);
+        Map<String, Object> model = new HashMap<>();
+
+        if(user == null)
+        {
+            return null;
+        }
+
+        String token = new JwtUtil().generateForgotPasswordToken(user.getId());
+        
+        String resetPasswordLink =  "http://localhost:8080/reset-password?token=" + token;
+        String result =  emailService.sendMail(email,resetPasswordLink);
+        if(result == "true")
+        {
+            
+            model.put("token", token);
+            model.put("message","we have sent an email to your account Successfully!!");
+            return model;
+        }
+        else
+        {
+            model.put("message", "Error in sending mail!!");
+            return model;
+        }
+    }
+
+   
 }

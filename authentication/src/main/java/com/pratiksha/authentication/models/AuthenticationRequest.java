@@ -2,23 +2,27 @@ package com.pratiksha.authentication.models;
 
 public class AuthenticationRequest 
 {
-    private String username;
+    private String email;
     private String password;
+    private String newPassword;
+    private String confirmPassword;
     
     public AuthenticationRequest() {
     }
 
-    public AuthenticationRequest(String username, String password) {
-        this.username = username;
+    public AuthenticationRequest(String email, String password, String newPassword, String confirmPassword) {
+        this.email = email;
         this.password = password;
+        this.newPassword = newPassword;
+        this.confirmPassword = confirmPassword;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -29,5 +33,24 @@ public class AuthenticationRequest
         this.password = password;
     }
 
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    
+    
+    
     
 }

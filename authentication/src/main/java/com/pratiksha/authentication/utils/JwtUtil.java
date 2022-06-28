@@ -60,4 +60,14 @@ public class JwtUtil {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
+
+    public String generateForgotPasswordToken(String userId)
+    {
+        String token = Jwts.builder()
+                        .setSubject(userId)
+                        .setExpiration(new Date(System.currentTimeMillis() + 1000 *60*60))
+                        .signWith(SignatureAlgorithm.HS512,SECRET_KEY)
+                        .compact();
+        return token;
+    }
 }

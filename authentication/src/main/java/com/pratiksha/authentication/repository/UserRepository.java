@@ -8,5 +8,5 @@ import com.pratiksha.authentication.models.UserModel;
 @Repository
 public interface UserRepository extends MongoRepository<UserModel,String> 
 {
-    UserModel findByUsername(String username);
+    UserModel findByEmail(String email);
 }
