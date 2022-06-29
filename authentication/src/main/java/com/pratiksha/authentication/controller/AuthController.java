@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,7 +25,7 @@ import com.pratiksha.authentication.models.AuthenticationRequest;
 import com.pratiksha.authentication.models.AuthenticationResponse;
 import com.pratiksha.authentication.models.UserModel;
 import com.pratiksha.authentication.repository.UserRepository;
-import com.pratiksha.authentication.services.EmailService;
+
 import com.pratiksha.authentication.services.UserService;
 import com.pratiksha.authentication.utils.JwtUtil;
 
