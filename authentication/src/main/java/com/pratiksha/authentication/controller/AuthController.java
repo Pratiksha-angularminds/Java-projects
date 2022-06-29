@@ -141,7 +141,8 @@ public class AuthController
            
             String email = SecurityContextHolder.getContext().getAuthentication().getName();
             UserModel user = userRepository.findByEmail(email);
-
+                
+            
             user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
 
