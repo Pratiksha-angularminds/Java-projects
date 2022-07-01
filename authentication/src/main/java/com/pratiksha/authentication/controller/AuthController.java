@@ -1,6 +1,7 @@
 package com.pratiksha.authentication.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -50,20 +51,15 @@ public class AuthController
     
    
 
-    // @GetMapping("/dashboard")
-    // public ResponseEntity<?> testingToken()
-    // {
-    //     return ResponseEntity.ok(new AuthenticationResponse("Welcome to Dashboard " + SecurityContextHolder.getContext().getAuthentication().getName()));
-    // }
-    
+   
     @GetMapping("/dashboard")
     public Object testingToken()
     {
         return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
     
-    @PostMapping("/subs")
-    public ResponseEntity<?> subscribeClient(@RequestBody AuthenticationRequest authenticationRequest)
+    @PostMapping("/register")
+    public ResponseEntity<?> registerClient(@RequestBody AuthenticationRequest authenticationRequest)
     {
         UserModel userModel = new UserModel();
 
@@ -91,8 +87,8 @@ public class AuthController
         return ResponseEntity.ok(new AuthenticationResponse("Success!!"+authenticationRequest.getEmail()));
     }
 
-    @PostMapping("/auth")
-    public ResponseEntity<?> authenticateClient(@RequestBody AuthenticationRequest authenticationRequest)
+    @PostMapping("/login")
+    public ResponseEntity<?> loginClient(@RequestBody AuthenticationRequest authenticationRequest)
     {
         String email = authenticationRequest.getEmail();
         String password = authenticationRequest.getPassword();
@@ -115,6 +111,14 @@ public class AuthController
         model.put("token", generatedToken);
         // return model;
         return ResponseEntity.ok(model);
+    }
+
+    @GetMapping("/user")
+    @ResponseBody
+    public  Principal googleLogin(Principal principal)
+    {
+        System.out.println(principal+"-----------------------------------");
+        return principal;
     }
 
     @PostMapping("/forgot-password")

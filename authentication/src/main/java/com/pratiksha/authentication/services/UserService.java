@@ -9,14 +9,19 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
+
 
 import com.pratiksha.authentication.models.UserModel;
 import com.pratiksha.authentication.repository.UserRepository;
 import com.pratiksha.authentication.utils.JwtUtil;
 
 @Service
-public class UserService implements UserDetailsService
+public class UserService extends OidcUserService  implements UserDetailsService 
 {
     @Autowired
     private UserRepository userRepository;  
@@ -37,6 +42,15 @@ public class UserService implements UserDetailsService
         String name = foundedUser.getEmail();
         String pwd = foundedUser.getPassword();
         return new User(name,pwd,new ArrayList<>());
+    }
+
+   
+    @Override
+    public OidcUser loadUser(OidcUserRequest userRequest) throws OAuth2AuthenticationException 
+    {
+        System.out.println("---------------%%%%%-----------"+userRequest);
+        final OidcUser oidcUser = super.loadUser(userRequest);
+        return oidcUser;
     }
 
     public Map<String, Object> forgotPassword(String email)
@@ -67,5 +81,18 @@ public class UserService implements UserDetailsService
         }
     }
 
-   
+    public void processOAuthPostLogin(String email) 
+    {
+        UserModel user = userRepository.findByEmail(email);
+         
+        if (user == null) 
+        {
+            System.out.println("-------------------------------"+user);
+            UserModel newUser = new UserModel();
+            newUser.setEmail(email);
+            // newUser.setProvider(Provider.GOOGLE);
+            userRepository.save(newUser);
+        }
+         
+    }
 }

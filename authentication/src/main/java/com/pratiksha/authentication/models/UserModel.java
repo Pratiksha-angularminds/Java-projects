@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.databind.introspect.AccessorNamingStrategy.Provider;
+
 
 @Document(collection = "Users")
 public class UserModel 
@@ -16,7 +18,8 @@ public class UserModel
     private String password;
     private String file;
     private List<FileModel> multiplefile;
-    
+    private Provider provider;
+
 
     public UserModel() {
     }
@@ -66,4 +69,17 @@ public class UserModel
         this.multiplefile = multiplefile;
     }
 
+
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
+    }
+
+    
 }
