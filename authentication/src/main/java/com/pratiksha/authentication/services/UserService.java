@@ -1,10 +1,12 @@
 package com.pratiksha.authentication.services;
 
+import java.security.Provider;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,7 +16,6 @@ import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
-
 
 import com.pratiksha.authentication.models.UserModel;
 import com.pratiksha.authentication.repository.UserRepository;
@@ -29,7 +30,9 @@ public class UserService extends OidcUserService  implements UserDetailsService
     @Autowired
     private EmailService emailService;
 
-  
+    @Autowired
+    private JwtUtil jwtUtil;
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException 
     {
@@ -39,7 +42,9 @@ public class UserService extends OidcUserService  implements UserDetailsService
         if(foundedUser == null)
             return null;
 
+       
         String name = foundedUser.getEmail();
+        System.out.println("-------------------------"+name);
         String pwd = foundedUser.getPassword();
         return new User(name,pwd,new ArrayList<>());
     }
@@ -48,7 +53,7 @@ public class UserService extends OidcUserService  implements UserDetailsService
     @Override
     public OidcUser loadUser(OidcUserRequest userRequest) throws OAuth2AuthenticationException 
     {
-        System.out.println("---------------%%%%%-----------"+userRequest);
+       
         final OidcUser oidcUser = super.loadUser(userRequest);
         return oidcUser;
     }
@@ -83,16 +88,17 @@ public class UserService extends OidcUserService  implements UserDetailsService
 
     public void processOAuthPostLogin(String email) 
     {
+        System.out.println("-------0000--------"+SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         UserModel user = userRepository.findByEmail(email);
          
         if (user == null) 
         {
-            System.out.println("-------------------------------"+user);
+            
             UserModel newUser = new UserModel();
             newUser.setEmail(email);
             // newUser.setProvider(Provider.GOOGLE);
             userRepository.save(newUser);
         }
-         
+     
     }
 }

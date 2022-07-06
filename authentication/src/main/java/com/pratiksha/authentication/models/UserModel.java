@@ -1,12 +1,15 @@
 package com.pratiksha.authentication.models;
 
 
+import java.security.Provider;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.fasterxml.jackson.databind.introspect.AccessorNamingStrategy.Provider;
+
+
+
 
 
 @Document(collection = "Users")

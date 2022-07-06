@@ -117,7 +117,6 @@ public class AuthController
     @ResponseBody
     public  Principal googleLogin(Principal principal)
     {
-        System.out.println(principal+"-----------------------------------");
         return principal;
     }
 
