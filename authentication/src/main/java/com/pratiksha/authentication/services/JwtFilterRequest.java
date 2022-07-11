@@ -21,8 +21,8 @@ import com.pratiksha.authentication.utils.JwtUtil;
 public class JwtFilterRequest extends OncePerRequestFilter
 {
 
-    @Autowired 
-    private JwtUtil jwtUtils;
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Autowired
     private UserService userService;
@@ -40,14 +40,14 @@ public class JwtFilterRequest extends OncePerRequestFilter
         if(authorizationHeader!=null  && authorizationHeader.startsWith("Bearer "))
         {
             jwtToken = authorizationHeader.substring(7);
-            username = jwtUtils.extractUsername(jwtToken);
+            username = jwtUtil.extractUsername(jwtToken);
             System.out.println("-------------------------"+username);
         }
 
         if(username != null && SecurityContextHolder.getContext().getAuthentication()==null)
         {
                 UserDetails currentUserDetails = userService.loadUserByUsername(username);
-                Boolean tokenValidated = jwtUtils.validateToken(jwtToken, currentUserDetails);
+                Boolean tokenValidated = jwtUtil.validateToken(jwtToken, currentUserDetails);
         
                 if(tokenValidated)
                 {

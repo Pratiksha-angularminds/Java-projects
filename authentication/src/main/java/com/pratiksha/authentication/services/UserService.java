@@ -1,6 +1,6 @@
 package com.pratiksha.authentication.services;
 
-import java.security.Provider;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,8 +30,7 @@ public class UserService extends OidcUserService  implements UserDetailsService
     @Autowired
     private EmailService emailService;
 
-    @Autowired
-    private JwtUtil jwtUtil;
+   
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException 

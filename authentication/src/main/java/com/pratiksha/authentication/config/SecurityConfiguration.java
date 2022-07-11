@@ -1,7 +1,5 @@
 package com.pratiksha.authentication.config;
 import java.io.IOException;
-import java.security.PrivateKey;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,14 +23,10 @@ import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.pratiksha.authentication.models.CustomOAuth2User;
+
 import com.pratiksha.authentication.services.JwtFilterRequest;
 import com.pratiksha.authentication.services.UserService;
-import com.pratiksha.authentication.utils.JwtUtil;
 
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 
 
 @Configuration
@@ -40,8 +34,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 // @EnableOAuth2Sso
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 {
-    private static String SECRET_KEY = "secret";
-
+   
     @Autowired
     private UserService userService;
 

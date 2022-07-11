@@ -101,8 +101,8 @@ public class AuthController
             return ResponseEntity.ok(new AuthenticationResponse("Incorrect Email ID or Password!!"));
         }
 
-        UserDetails loadedUser = this.userService.loadUserByUsername(email);
-        String generatedToken = this.jwtUtil.generateToken(loadedUser);
+        UserDetails loadedUser = userService.loadUserByUsername(email);
+        String generatedToken = jwtUtil.generateToken(loadedUser);
         
         UserModel user = userRepository.findByEmail(email);
         
