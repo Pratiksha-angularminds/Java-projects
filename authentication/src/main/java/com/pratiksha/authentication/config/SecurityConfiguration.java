@@ -1,5 +1,6 @@
 package com.pratiksha.authentication.config;
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.pratiksha.authentication.services.JwtFilterRequest;
 import com.pratiksha.authentication.services.UserService;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
 
 
 @Configuration
@@ -34,7 +38,8 @@ import com.pratiksha.authentication.services.UserService;
 // @EnableOAuth2Sso
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 {
-   
+    private String SECRET_KEY = "secret";
+
     @Autowired
     private UserService userService;
 
@@ -57,30 +62,30 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
         .csrf()
         .disable()
         .authorizeRequests()
-        .antMatchers( "/register","/login","/forgot-password","/")
+        .antMatchers( "/register","/login","/forgot-password")
         .permitAll()
         .anyRequest()
         .authenticated()
         .and()
-        .oauth2Login()
-        .successHandler(new AuthenticationSuccessHandler() 
-        {
-            @Override
-            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-                    Authentication authentication) throws IOException, ServletException 
-                    {
+        // .oauth2Login()
+        // .successHandler(new AuthenticationSuccessHandler() 
+        // {
+        //     @Override
+        //     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+        //             Authentication authentication) throws IOException, ServletException 
+        //             {
                         
-                        DefaultOidcUser oauthUser = (DefaultOidcUser) authentication.getPrincipal();
-                        String email = oauthUser.getAttribute("email");
+        //                 DefaultOidcUser oauthUser = (DefaultOidcUser) authentication.getPrincipal();
+        //                 String email = oauthUser.getAttribute("email");
 
-                        // String token = Jwts.builder().setSubject(email).setIssuedAt(new Date(System.currentTimeMillis()))
-                        // .signWith(SignatureAlgorithm.HS512,SECRET_KEY).setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)).compact();
+        //                 String token = Jwts.builder().setSubject(email).setIssuedAt(new Date(System.currentTimeMillis()))
+        //                 .signWith(SignatureAlgorithm.HS512,SECRET_KEY).setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)).compact();
 
-                        // System.out.println("-----------------------------------token:-----"+token);
-                        userService.processOAuthPostLogin(email);
-                    }
-        })
-        .and()
+        //                 System.out.println("-----------------------------------token:-----"+token);
+        //                 userService.processOAuthPostLogin(email);
+        //             }
+        // })
+        // .and()
         .sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
 

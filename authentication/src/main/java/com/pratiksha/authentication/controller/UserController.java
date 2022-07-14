@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,6 +41,7 @@ public class UserController
     public ResponseEntity<?> getAllUsers()
     {
         List<UserModel> users = userRepository.findAll();
+        System.out.println("-------0000--------"+SecurityContextHolder.getContext().getAuthentication().getName());
 
         //--------sorting-----------------
         // List<UserModel> users = userRepository.findAll(Sort.by(Direction.DESC,"email"));
@@ -59,7 +61,6 @@ public class UserController
     {
 
         // String temp = ServletUriComponentsBuilder.fromCurrentContextPath().path("/images/").path(filename).toUriString();
-        
         System.out.println(file.getOriginalFilename());
         UserModel userModel = fileService.addFile(file);
         return ResponseEntity.ok(userModel);

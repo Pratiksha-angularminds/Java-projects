@@ -36,8 +36,9 @@ public class UserService extends OidcUserService  implements UserDetailsService
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException 
     {
         UserModel foundedUser = userRepository.findByEmail(email);
-       
+       System.out.println("foundedUser:-------"+foundedUser);
 
+        // return UserPrincipal.create(foundedUser);
         if(foundedUser == null)
             return null;
 
@@ -45,6 +46,7 @@ public class UserService extends OidcUserService  implements UserDetailsService
         String name = foundedUser.getEmail();
         System.out.println("-------------------------"+name);
         String pwd = foundedUser.getPassword();
+
         return new User(name,pwd,new ArrayList<>());
     }
 
@@ -87,7 +89,6 @@ public class UserService extends OidcUserService  implements UserDetailsService
 
     public void processOAuthPostLogin(String email) 
     {
-        System.out.println("-------0000--------"+SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         UserModel user = userRepository.findByEmail(email);
          
         if (user == null) 

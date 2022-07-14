@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +21,8 @@ public class UserController
 
     @Autowired
     private UserRepository userRepository;
+
+   
 
     @GetMapping("/getAllUsers")
     public ResponseEntity<?> getAllUsers()
@@ -35,11 +39,11 @@ public class UserController
         
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<?> createUser(@RequestBody UserModel user)
+    @PostMapping("/hello")
+    public ResponseEntity<?> createUser()
     {
-        UserModel save = userRepository.save(user);
-        return ResponseEntity.ok(save);
+    //    System.out.println("--------------------user:---"+ SecurityContextHolder.getContext().getAuthentication().getName());
+        return ResponseEntity.ok("hello");
     }
 
 }

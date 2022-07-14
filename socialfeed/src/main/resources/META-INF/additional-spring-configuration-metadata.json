@@ -1,0 +1,22 @@
+{"properties": [
+  {
+    "name": "socialfeed.app.jwtCookieName",
+    "type": "java.lang.String",
+    "description": "A description for 'socialfeed.app.jwtCookieName'"
+  },
+  {
+    "name": "socialfeed.app.jwtSecret",
+    "type": "java.lang.String",
+    "description": "A description for 'socialfeed.app.jwtSecret'"
+  },
+  {
+    "name": "socialfeed.app.jwtExpirationMs",
+    "type": "java.lang.String",
+    "description": "A description for 'socialfeed.app.jwtExpirationMs'"
+  },
+  {
+    "name": "socialfeed.app.jwtExpirationMs",
+    "type": "java.lang.String",
+    "description": "A description for 'socialfeed.app.jwtExpirationMs'"
+  }
+]}
