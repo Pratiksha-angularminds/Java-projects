@@ -39,6 +39,8 @@ public class UserModel
     private String gender;
     private Date dob;
     private String mobile;
+    private String profileImg;
+    private Boolean removeImg = false;
 
     private Boolean isEmailVerified = false;
     

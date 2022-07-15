@@ -17,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +30,7 @@ import com.pratiksha.socialfeed.repositories.UserRepository;
 import com.pratiksha.socialfeed.security.Jwt.JwtUtils;
 import com.pratiksha.socialfeed.services.AuthService;
 
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class AuthController 
 {
@@ -67,7 +68,7 @@ public class AuthController
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String token = jwtUtils.generateToken(authentication);
-
+       
         UserModel user = userRepository.findByEmail(loginRequest.getEmail());
         Map<String, Object> model = new HashMap<>();
         model.put("message", "User Loged in succesfully!!");
@@ -80,15 +81,15 @@ public class AuthController
     @PostMapping("/auth/logout")
     public ResponseEntity<?> logoutUser(HttpSession session) 
     {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();   
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        
         if (auth != null)
         {      
-            System.out.println("------------logout-----------"+auth);
             session.invalidate();
         }  
         Map<String, Object> model = new HashMap<>();
         model.put("message", "User logged out successfully!!");
-        return ResponseEntity.ok("logged out");
+        return ResponseEntity.ok(model);
     }
     
 }

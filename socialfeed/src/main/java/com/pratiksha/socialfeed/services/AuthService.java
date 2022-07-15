@@ -34,6 +34,8 @@ public class AuthService
                 savedUser.setGender(registerUser.getGender());
                 savedUser.setDob(registerUser.getDob());
                 savedUser.setMobile(registerUser.getMobile());
+                savedUser.setRemoveImg(registerUser.getRemoveImg());
+                savedUser.setProfileImg(registerUser.getProfileImg());
 
                 userRepository.save(savedUser);
                 return savedUser;

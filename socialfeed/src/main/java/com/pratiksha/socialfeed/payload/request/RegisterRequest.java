@@ -29,5 +29,7 @@ public class RegisterRequest
     private Date dob;
     private String mobile;
 
+    private String profileImg;
     private Boolean isEmailVerified = false;
+    private Boolean removeImg = false;
 }
