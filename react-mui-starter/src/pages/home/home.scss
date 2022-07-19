@@ -1,0 +1,58 @@
+#postCard
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 8px 0px 0px;
+    font-family:'Public sans';
+    width: 508px;
+    height: 708px;
+
+    background: #ffffff;
+    // color:rgb(153, 153, 153);
+    box-shadow: 1px 1px 8px 6px rgba(33, 43, 54, 0.25);
+    border-radius: 8px;
+    
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+#commentModal
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 530px;
+    width: 910px;
+    background-color: white;
+    //   border: 2px solid #000;
+    box-shadow: 24;
+    padding: 4;
+}
+
+#likeIcon,#commentIcon,#bookmarkIcon
+{
+    color: black;
+}
+#likeIcon:hover,#commentIcon:hover,#bookmarkIcon:hover
+{
+    color:grey;
+}
+
+.picker-container 
+{
+    position: relative;
+    width: 300px;
+}
+ 
+.emoji-icon 
+{
+    cursor: pointer;
+    
+}
+ 

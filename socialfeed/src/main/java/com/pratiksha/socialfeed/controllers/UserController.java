@@ -1,5 +1,6 @@
 package com.pratiksha.socialfeed.controllers;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,7 @@ import com.pratiksha.socialfeed.payload.request.EditProfileRequest;
 import com.pratiksha.socialfeed.repositories.UserRepository;
 import com.pratiksha.socialfeed.services.UserService;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class UserController 
 {
@@ -52,16 +54,28 @@ public class UserController
 
     //--------------------------------------edit profile----------------------------------
     @PatchMapping("/users/edit-profile")
-    public ResponseEntity<?> editProfile(@Valid @RequestParam Map<EditProfileRequest> formdata,@RequestParam("profileImg") MultipartFile file)
+    public ResponseEntity<?> editProfile(EditProfileRequest formdata) throws IOException
     {
-        // UserModel user = userService.editProfile(formdata,file);
-        System.out.println("------------"+formdata + file.getOriginalFilename());
-
+        
+        UserModel user = userService.editProfile(formdata);
         Map<String, Object> model = new HashMap<>();
         model.put("message", "User updated successfully");
-        // model.put("user", user);
+        model.put("user", user);
 
         return ResponseEntity.ok(model);
     }
-
 }
+
+
+//--------------------------------------edit profile image----------------------------
+// @PatchMapping("/users/edit-profileImg")
+// public ResponseEntity<?> editProfileImg(@RequestParam("profileImg") MultipartFile file)
+// {
+//     UserModel user = userService.editProfileImg(file);
+    
+//     Map<String, Object> model = new HashMap<>();
+//     model.put("message", "User updated successfully");
+//     model.put("user", user);
+
+//     return ResponseEntity.ok(user);
+// }

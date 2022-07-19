@@ -1,16 +1,19 @@
 package com.pratiksha.socialfeed.services;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -46,32 +49,60 @@ public class UserService
     }
 
     //-------------------------edit profile--------------------------
-    public UserModel editProfile(HashMap formdata,MultipartFile file)
+    public UserModel editProfile(EditProfileRequest editProfileRequest) throws IOException
     {
         UserModel user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         
-        user.setName(formdata.get("name"));
-        
-        // user.setEmail(editProfileRequest.getEmail());
-        // user.setGender(editProfileRequest.getGender());
-        // user.setDob(editProfileRequest.getDob());
-        // user.setMobile(editProfileRequest.getMobile());
+        if(editProfileRequest.getName() != null)
+        {
+            user.setName(editProfileRequest.getName());
+        }
+
+        if(editProfileRequest.getEmail() != null)
+        {
+            user.setEmail(editProfileRequest.getEmail());
+        }
+
+        if(editProfileRequest.getGender() != null)
+        {
+            user.setGender(editProfileRequest.getGender());
+        }
+
+        if(editProfileRequest.getDob() != null)
+        {
+            user.setDob(editProfileRequest.getDob());
+        }
+
+        if(editProfileRequest.getMobile() != null)
+        {
+            user.setMobile(editProfileRequest.getMobile());
+        }
 
         if(editProfileRequest.getRemoveImg() == true)
         {
-            
             user.setRemoveImg(editProfileRequest.getRemoveImg());
             user.setProfileImg("");
-           
         } 
-        else
+        else if(editProfileRequest.getProfileImg() != null)
         {
+            String filePath = addFile(editProfileRequest.getProfileImg());
             user.setRemoveImg(editProfileRequest.getRemoveImg());
-            user.setProfileImg(editProfileRequest.getProfileImg());
+            user.setProfileImg(filePath);
         }
     
-        System.out.println("--------------------"+user);
         userRepository.save(user);
         return user;
+
     }
 }
+
+// editProfileRequest.forEach((k,v) ->
+// {
+//     Field field = ReflectionUtils.findField(UserModel.class, (String) k);
+//     field.setAccessible(true);
+//     ReflectionUtils.setField(field, user, v);
+// });
+
+// System.out.println(editProfileRequest);
+// userRepository.save(user);
+// return user;

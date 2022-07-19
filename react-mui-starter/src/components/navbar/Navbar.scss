@@ -1,0 +1,57 @@
+#navbar
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    
+
+    position: absolute;
+    width: 1440px;
+    height: 60px;
+    left: 0px;
+    top: 0px;
+
+    background: #FFFFFF;
+    box-shadow: 0px 1px 1px rgba(33, 43, 54, 0.25);
+}
+
+#editModal
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 32px 16px;
+    gap: 24px;
+    isolation: isolate;
+
+    position: absolute;
+    top: 5%;
+    left: 32%;
+    width: 480px;
+    
+   
+    font-family: 'Public sans';
+    background: #FFFFFF;
+    box-shadow: -1px -1px 4px rgba(33, 43, 54, 0.1), 2px 2px 4px rgba(33, 43, 54, 0.2);
+    border-radius: 8px;
+    
+}
+
+#ChangePasswordModal
+{
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 436px;
+  width: 512px;
+  background-color: #FFFFFF;
+//   border: 2px solid #000;
+  box-shadow: 24;
+  padding: 4;
+
+}

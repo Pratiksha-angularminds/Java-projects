@@ -4,13 +4,15 @@ import java.util.Date;
 
 import javax.validation.constraints.Email;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
 public class EditProfileRequest 
 {
     private String name;
-
+    
     @Email
     private String email;
 
@@ -19,7 +21,7 @@ public class EditProfileRequest
 
     
     private String mobile;
-    private String profileImg;
+    private MultipartFile profileImg;
     private Boolean removeImg = false;
 
     private Boolean isEmailVerified = false;

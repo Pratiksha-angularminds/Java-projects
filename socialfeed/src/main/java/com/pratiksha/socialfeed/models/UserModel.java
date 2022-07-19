@@ -48,7 +48,7 @@ public class UserModel
     private Date createdAt;
 
     @LastModifiedDate
-    private Instant updatedAt;
+    private Date updatedAt;
 
     public String get_id() {
         return _id;

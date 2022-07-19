@@ -4,6 +4,7 @@ package com.pratiksha.socialfeed.security.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -36,20 +37,27 @@ public class SecurityConfiguration extends  WebSecurityConfigurerAdapter
     @Override
     protected void configure(HttpSecurity http) throws Exception 
     {
-        http
-        .csrf()
-        .disable()
-        .authorizeRequests()
-        .antMatchers( "/auth/register","/auth/login")
-        .permitAll()
-        .anyRequest()
-        .authenticated()
-        .and()
-        .sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+        // http
+        // .csrf()
+        // .disable()
+        // .authorizeRequests()
+        // .antMatchers( "/auth/register","/auth/login","/images/**")
+        // .permitAll()
+        // .anyRequest()
+        // .authenticated()
+        // .and()
+        // .sessionManagement()
+        // .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
 
+        // http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+        http.cors();
+        http.csrf().disable().authorizeRequests()
+                .antMatchers("/auth/register","/auth/login","/images/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
     }
     
     @Bean
@@ -63,5 +71,11 @@ public class SecurityConfiguration extends  WebSecurityConfigurerAdapter
     public AuthenticationManager authenticationManagerBean() throws Exception 
     {
         return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public AuditorAware<String> auditorAware()
+    {
+        return new CustomAuditAware();
     }
 }
