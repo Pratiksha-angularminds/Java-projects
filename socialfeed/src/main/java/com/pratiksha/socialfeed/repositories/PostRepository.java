@@ -8,5 +8,5 @@ import com.pratiksha.socialfeed.models.PostModel;
 
 public interface PostRepository extends MongoRepository<PostModel,String>
 {
-    Optional<PostModel> findById(String _id);
+    // PostModel findById(String _id);
 }

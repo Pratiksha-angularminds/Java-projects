@@ -1,14 +1,12 @@
 package com.pratiksha.socialfeed.security.config;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.pratiksha.socialfeed.models.PostModel;
 import com.pratiksha.socialfeed.models.UserModel;
 import com.pratiksha.socialfeed.repositories.UserRepository;
 

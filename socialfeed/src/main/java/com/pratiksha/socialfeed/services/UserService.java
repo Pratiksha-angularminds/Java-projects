@@ -1,21 +1,11 @@
 package com.pratiksha.socialfeed.services;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ReflectionUtils;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pratiksha.socialfeed.models.UserModel;
 import com.pratiksha.socialfeed.payload.request.EditProfileRequest;
@@ -27,28 +17,10 @@ public class UserService
     @Autowired
     private UserRepository userRepository;
     
-    public final String UPLOAD_DIR = new ClassPathResource("static/images/").getFile().getAbsolutePath();
- 
-    public UserService() throws IOException
-    {
-
-    }
-
-    
-    //-------------------------------------------FOR SINGLE FILE-----------------------------
-    public String addFile(MultipartFile multipartFile) throws IOException 
-    {
-
-        String filename = Calendar.getInstance().get(Calendar.MILLISECOND) + multipartFile.getOriginalFilename().trim();
-        
-        Files.copy(multipartFile.getInputStream(), Paths.get(UPLOAD_DIR + "/" + filename), StandardCopyOption.REPLACE_EXISTING);
-
-        String filepath = ServletUriComponentsBuilder.fromCurrentContextPath().path("/images/").path(filename).toUriString();
-        
-        return filepath;
-    }
-
-    //-------------------------edit profile--------------------------
+    @Autowired
+    private FileService fileService;
+   
+    //-------------------------EDIT PROFILE--------------------------
     public UserModel editProfile(EditProfileRequest editProfileRequest) throws IOException
     {
         UserModel user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -85,7 +57,7 @@ public class UserService
         } 
         else if(editProfileRequest.getProfileImg() != null)
         {
-            String filePath = addFile(editProfileRequest.getProfileImg());
+            String filePath = fileService.addFile(editProfileRequest.getProfileImg());
             user.setRemoveImg(editProfileRequest.getRemoveImg());
             user.setProfileImg(filePath);
         }

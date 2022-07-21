@@ -3,22 +3,18 @@ package com.pratiksha.socialfeed.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.apache.logging.log4j.message.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
-import org.springframework.validation.annotation.Validated;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,7 +41,10 @@ public class AuthController
 
     @Autowired
     private JwtUtils jwtUtils;
-    
+
+
+
+    //--------------------------------------REGISTER USER----------------------------------
     @PostMapping("/auth/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerUser) 
     {
@@ -60,6 +59,8 @@ public class AuthController
         }
     }
 
+
+    //-----------------------------------LOGIN USER--------------------------------------
     @PostMapping("/auth/login")
     public ResponseEntity<?> loginUser(@Valid @RequestBody LoginRequest loginRequest) 
     {
@@ -78,6 +79,7 @@ public class AuthController
         return ResponseEntity.ok(model);
     }
 
+    //------------------------------------LOGOUT USER---------------------------------------
     @PostMapping("/auth/logout")
     public ResponseEntity<?> logoutUser(HttpSession session) 
     {

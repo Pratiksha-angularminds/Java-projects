@@ -1,15 +1,19 @@
 package com.pratiksha.socialfeed.models;
 
-import java.lang.reflect.Array;
+
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.UUID;
+
 
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import lombok.Data;
 
@@ -20,17 +24,25 @@ public class PostModel
     @Id
     private String _id;
 
-    private String location;
+    private String location = "";
 
-    private MultipartFile postImg;
+    private List<FileModel> postImg = new ArrayList<>();
 
-    // @NotBlank
+    @NotBlank
     private String caption;
 
-    private String[] likes;
+    private ArrayList<String> likes = new ArrayList<>();
 
-    private List<CommentModel> comments[];
+    private ArrayList<CommentModel> comments = new ArrayList<>();
+
+    private String[] bookmarks = new String[0];
 
     @CreatedBy
     private String createdBy;
+
+    @CreatedDate
+    private Date createdAt;
+
+    @LastModifiedDate
+    private Date updatedAt;
 }

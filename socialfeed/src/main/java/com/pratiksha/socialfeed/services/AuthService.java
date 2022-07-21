@@ -1,7 +1,6 @@
 package com.pratiksha.socialfeed.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +17,8 @@ public class AuthService
     @Autowired
     private PasswordEncoder passwordEncoder;
     
+
+    //-----------------------------------SERVICE TO REGISTER USER-----------------------------
     public Object registerUser(RegisterRequest registerUser)
     {
         if(userRepository.existsByEmail(registerUser.getEmail()))

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.Valid;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,11 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
+
 
 import com.pratiksha.socialfeed.models.UserModel;
 import com.pratiksha.socialfeed.payload.request.EditProfileRequest;
@@ -35,7 +32,7 @@ public class UserController
     @Autowired
     private UserService userService;
 
-    //---------------------------------get all users-----------------------------------
+    //---------------------------------GET ALL USERS-----------------------------------
     @GetMapping("/users")
     public ResponseEntity<?> getAllUsers()
     {
@@ -52,7 +49,7 @@ public class UserController
     }
 
 
-    //--------------------------------------edit profile----------------------------------
+    //--------------------------------------EDIT PROFILE----------------------------------
     @PatchMapping("/users/edit-profile")
     public ResponseEntity<?> editProfile(EditProfileRequest formdata) throws IOException
     {

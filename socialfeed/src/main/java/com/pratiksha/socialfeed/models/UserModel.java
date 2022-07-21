@@ -1,20 +1,17 @@
 package com.pratiksha.socialfeed.models;
 
 
-import java.time.Instant;
+
 import java.util.Date;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.validation.annotation.Validated;
-
 import lombok.Data;
 
 @Document("Users")

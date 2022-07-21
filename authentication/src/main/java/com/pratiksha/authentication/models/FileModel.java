@@ -7,11 +7,11 @@ public class FileModel
 {
    
         private String name;
-        private String url;;
+        private String url;
 
         public FileModel() 
         {
-
+            
         }
 
         public FileModel(String name, String url) 

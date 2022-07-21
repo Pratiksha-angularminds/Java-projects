@@ -8,7 +8,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import com.pratiksha.socialfeed.services.UserPrincipal;
 
 // import java.nio.file.attribute.UserPrincipal;
 import java.util.Date;
