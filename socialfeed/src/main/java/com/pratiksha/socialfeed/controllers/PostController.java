@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pratiksha.socialfeed.models.PostModel;
+import com.pratiksha.socialfeed.payload.request.CommentPostRequest;
 import com.pratiksha.socialfeed.repositories.PostRepository;
 import com.pratiksha.socialfeed.services.PostService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -105,5 +108,12 @@ public class PostController
         return new ResponseEntity<>(post,HttpStatus.OK);
     }
 
-    
+    //--------------------------------COMMENT POST----------------------------------------
+    @PutMapping("/posts/comments/{postid}")
+    public ResponseEntity<?> commentPost(@PathVariable("postid") String postid,@Valid @RequestBody CommentPostRequest reqBody) 
+    {
+       
+        PostModel post = postService.commentPost(postid,reqBody);
+        return new ResponseEntity<>(post,HttpStatus.OK);
+    }
 }
