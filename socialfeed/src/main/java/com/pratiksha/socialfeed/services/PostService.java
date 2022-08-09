@@ -73,7 +73,7 @@ public class PostService
         Optional<PostModel> post = postRepository.findById(postid);
         return post;
     }
-
+    
 
     //-----------------------------------SERVICE TO LIKE POST----------------------------
     public PostModel likePost(String postid)

@@ -13,10 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
 import com.pratiksha.socialfeed.models.UserModel;
+import com.pratiksha.socialfeed.payload.request.EditProfileImgRequest;
 import com.pratiksha.socialfeed.payload.request.EditProfileRequest;
 import com.pratiksha.socialfeed.repositories.UserRepository;
 import com.pratiksha.socialfeed.services.UserService;
@@ -51,10 +53,22 @@ public class UserController
 
     //--------------------------------------EDIT PROFILE----------------------------------
     @PatchMapping("/users/edit-profile")
-    public ResponseEntity<?> editProfile(EditProfileRequest formdata) throws IOException
+    public ResponseEntity<?> editProfile(@RequestBody EditProfileRequest formdata) throws IOException
     {
         
         UserModel user = userService.editProfile(formdata);
+        Map<String, Object> model = new HashMap<>();
+        model.put("message", "User updated successfully");
+        model.put("user", user);
+
+        return ResponseEntity.ok(model);
+    }
+
+    //-------------------------------------EDIT PROFILEIMAGE-----------------------------
+    @PatchMapping("/users/edit-profileImg")
+    public ResponseEntity<?> editProfileImage(EditProfileImgRequest formdata) throws IOException
+    {
+        UserModel user = userService.editProfileImg(formdata);
         Map<String, Object> model = new HashMap<>();
         model.put("message", "User updated successfully");
         model.put("user", user);
