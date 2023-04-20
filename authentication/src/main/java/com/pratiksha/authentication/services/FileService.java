@@ -29,8 +29,8 @@ public class FileService
     @Autowired
     private UserRepository userRepository;  
     
-    // public final String UPLOAD_DIR = "/home/am-pc-50/Java/SpringBoot/authentication/src/main/resources/static";
-    public final String UPLOAD_DIR = new ClassPathResource("static/images/").getFile().getAbsolutePath();
+    public final String UPLOAD_DIR = "/home/am-pc-50/Java/SpringBoot/authentication/src/main/resources/static";
+    // public final String UPLOAD_DIR = new ClassPathResource("static/images/").getFile().getAbsolutePath();
    
 
     public FileService() throws IOException

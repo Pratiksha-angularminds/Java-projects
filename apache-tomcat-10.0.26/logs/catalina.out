@@ -1,0 +1,3 @@
+./catalina.sh: 1: eval: JAVA_HOME/jre/bin/java: not found
+./catalina.sh: 1: eval: JAVA_HOME/jre/bin/java: not found
+./catalina.sh: 1: eval: JAVA_HOME/jre/bin/java: not found

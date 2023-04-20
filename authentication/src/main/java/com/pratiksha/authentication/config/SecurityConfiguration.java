@@ -1,14 +1,11 @@
 package com.pratiksha.authentication.config;
-import java.io.IOException;
-import java.util.Date;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -23,7 +20,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 
 import com.pratiksha.authentication.services.JwtFilterRequest;
 import com.pratiksha.authentication.services.UserService;
@@ -35,6 +34,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @Configuration
 @EnableWebSecurity
+@ComponentScan
 // @EnableOAuth2Sso
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 {
@@ -62,7 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
         .csrf()
         .disable()
         .authorizeRequests()
-        .antMatchers( "/register","/login","/forgot-password")
+        .antMatchers( "/register","/login","/forgot-password","/country")
         .permitAll()
         .anyRequest()
         .authenticated()
@@ -114,4 +114,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
     {
         return super.authenticationManagerBean();
     }
+
+    // @Override
+
+    // public void configureViewResolvers(ViewResolverRegistry registry) {
+    //     InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+    //     resolver.setPrefix("/WEB-INF/view/");
+    //     resolver.setSuffix(".jsp");
+    //     resolver.setViewClass(JstlView.class);
+    //     registry.viewResolver(resolver);
+    // }
 }
